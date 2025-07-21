@@ -22,3 +22,5 @@ output = Structured_model.invoke("""Review ID rev_20250719_00123 was submitted b
 """)
 print(output)
 print(output['review_id'])
+
+# for data validation we will use pydantic
