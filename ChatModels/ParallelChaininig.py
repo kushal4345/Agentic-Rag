@@ -40,3 +40,5 @@ merge_chain = prompt3 | llm2 | parser
 chain = parallel_chain | merge_chain
 result = chain.invoke({"text": "The quick brown fox jumps over the lazy dog. This is a classic example of a pangram, which is a sentence that contains every letter of the alphabet at least once."})
 print(result)
+print(chain.get_graph().print_ascii())  # This will print the graph of the chain
+# The output will contain the merged notes and quiz based on the input text.
