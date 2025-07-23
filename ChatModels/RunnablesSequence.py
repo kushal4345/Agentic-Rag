@@ -13,6 +13,12 @@ prompt = PromptTemplate(
     template= "you are a helpful {domain} assistant that will provide a detailed summary of {topic} in a well-structured format.",
     input_variables=["domain", "topic"]
 )
+
+# define 2nd prompt
+prompt2 = PromptTemplate(
+    template="you have to extract key points from the following text: {text}",
+    input_variables=["text"]
+)
 # Load the Azure Chat OpenAI model
 model = AzureChatOpenAI(
     deployment_name="gpt-4o",  # Your Azure deployment name
@@ -21,9 +27,10 @@ model = AzureChatOpenAI(
     max_tokens=500
 )
 
+
 parser = StrOutputParser()
 # Create a RunnableSequence to process the input through the prompt, model, and parser
-chain = RunnableSequence(prompt, model, parser)
+chain = RunnableSequence(prompt, model, parser,prompt2 , model , parser)
 
 # Invoke the chain with input variables
 result = chain.invoke({"domain": "story teller", "topic": "lord Krishna"})
