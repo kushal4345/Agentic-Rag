@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 loader = DirectoryLoader(
-    directory_path="/home/user/Documents/"
+    directory_path="/home/user/Documents/"  #load all the pdf present inside the directory 
     glob='*.pdf',
     loader_cls= PyPDFLoader
 )
