@@ -10,9 +10,9 @@ load_dotenv()
 video_id = "GDrBIKOR01c"
 ytt_api = YouTubeTranscriptApi()
 transcript = ytt_api.fetch(video_id)
-print(transcript)
+
 full_text = " ".join(snippet.text for snippet in transcript)
-# print(full_text)
+
 # print(full_text)
 
 
@@ -22,13 +22,7 @@ splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200 )
 chunks = splitter.create_documents([full_text])
 print(len(chunks))
 
-print("--- Verifying Azure OpenAI Settings ---")
-print(f"Deployment Name (Embeddings): {os.getenv('AZURE_OPENAI_DEPLOYMENT')}")
-print(f"Azure Endpoint: {os.getenv('AZURE_OPENAI_ENDPOINT')}")
-print(f"API Version: {os.getenv('EMBEDDING_MODEL_VERSION')}")
-print(f"API Key Loaded: {os.getenv('EMBEDDING_MODEL_API_KEY') is not None}")
-
-
+#inirtialize the model
 embedding_model = AzureOpenAIEmbeddings(
         deployment=os.getenv("AZURE_OPENAI_DEPLOYMENT"),
         openai_api_key=os.getenv("EMBEDDING_MODEL_API_KEY"),
@@ -36,18 +30,16 @@ embedding_model = AzureOpenAIEmbeddings(
         azure_endpoint=os.getenv("AZURE_OPENAI_ENDPOINT"),
     )
  
-# generate the emebedding
 
-# # store the embedding into vector db
 vector_store= FAISS.from_documents(chunks,embedding_model,)
 vector_store.index_to_docstore_id
-# #initialize the gpt 4 llm
+
 
 # # retrieve the top 5 vector 
 retriever = vector_store.as_retriever(search_type="similarity", search_kwargs={"k": 4})
 results = retriever.invoke("What are AI agents?")
 
-
+#initialize the llm
 model = AzureChatOpenAI(
     deployment_name="gpt-4o",  # Your Azure deployment name
     openai_api_version="2025-01-01-preview",
