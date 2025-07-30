@@ -12,7 +12,7 @@ def multiply(a:int,b:int):
     """Given two number tool will return their product"""
     return a*b
 
-print(multiply.invoke(4,3))
+print(multiply.invoke({"a": 4, "b": 3}))
 print(multiply.name)
 print(multiply.description)
 print(multiply.args)
@@ -27,3 +27,10 @@ llm = AzureChatOpenAI(
 )
 
 llm_with_tool = llm.bind_tools([multiply])  #tool has been binded llm can use it further
+
+
+#calling a tool
+
+print(llm_with_tool.invoke("hey hi how are you").content) # it will not call a tool untill and unless task has not provided like multiply 
+
+print(llm_with_tool.invoke("can you multiply 4 with 7"))  # here it will call a multiply tool
