@@ -33,4 +33,4 @@ llm_with_tool = llm.bind_tools([multiply])  #tool has been binded llm can use it
 
 print(llm_with_tool.invoke("hey hi how are you").content) # it will not call a tool untill and unless task has not provided like multiply 
 
-print(llm_with_tool.invoke("can you multiply 4 with 7"))  # here it will call a multiply tool
+print(llm_with_tool.invoke("can you multiply 4 with 7").tool_calls[0])  # here it will call a multiply tool
