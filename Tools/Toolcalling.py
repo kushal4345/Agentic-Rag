@@ -17,3 +17,13 @@ print(multiply.name)
 print(multiply.description)
 print(multiply.args)
 
+#binding a tool
+
+llm = AzureChatOpenAI(
+    deployment_name="gpt-4o",  # Your Azure deployment name
+    openai_api_version="2025-01-01-preview",
+    temperature=0.7,
+    max_tokens=500
+)
+
+llm_with_tool = llm.bind_tools([multiply])  #tool has been binded llm can use it further
