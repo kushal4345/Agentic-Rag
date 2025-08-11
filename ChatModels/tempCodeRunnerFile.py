@@ -1,2 +1,1 @@
-
-from pydantic import BaseModel, Field
+from dotenv import load_dotenv
