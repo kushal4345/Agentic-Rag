@@ -110,5 +110,5 @@ print("\nInvoking RAG chain...")
 response = main_chain.invoke(question)
 
 # --- Step 13: Display response in pretty JSON ---
-print("\n✅ Structured Output:\n")
+
 print(json.dumps(response.dict(), indent=2))
